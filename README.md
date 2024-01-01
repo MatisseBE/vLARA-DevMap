@@ -1,8 +1,8 @@
 # vLARA Development map
-https://matissebe.github.io/vLARA-DevMap/#7/51.244/5.011
+https://matissebe.github.io/vLARA-DevMap
 
 
-#### Categories
+### Categories
 TSA/TRA:  Includes (temporary) restricted areas such as TRAs,TSAs and RESTs
 
 DANG:     Not restricted, but dangerous to the flight. E.g.: Aerial operations such as gliding and parachute jumping, or aerial refuling
