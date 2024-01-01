@@ -8,7 +8,8 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link rel="stylesheet" href="css/leaflet.css">
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
-        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <link rel="stylesheet" href="css/filter.css">
+<link rel="stylesheet" href="css/nouislider.min.css">
         <link rel="stylesheet" href="css/leaflet-measure.css">
         <style>
         html, body, #map {
@@ -32,9 +33,11 @@
         <script src="js/rbush.min.js"></script>
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
-        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
         <script src="js/leaflet-measure.js"></script>
-        <script src="data/BELUX_GEO_1.js"></script>
+        <script src="js/tailDT.js"></script>
+<script src="js/nouislider.min.js"></script>
+<script src="js/wNumb.js"></script>
+        <script src="data/Belux_1.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -54,7 +57,7 @@
         }
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[48.87448370717169,2.911481641051535],[53.211244894671665,8.88824306457014]]);
+        }).fitBounds([[49.25519125585097,1.7011126490165174],[51.43411546786472,9.12257872873598]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -86,7 +89,7 @@
         });
         layer_GoogleRoad_0;
         map.addLayer(layer_GoogleRoad_0);
-        function pop_BELUX_GEO_1(feature, layer) {
+        function pop_Belux_1(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (i in e.target._eventParents) {
@@ -104,7 +107,6 @@
             });
             
         
-        
         var popupContent = '<table>\
             <tr>\
                 <td colspan="2" style="text-align: center; font-size: 120%;font-weight: bold;border-bottom: 1px solid black ">' + (feature.properties['category'] !== null ? autolinker.link(feature.properties['name'].toLocaleString()) : '') + '</td>\
@@ -121,9 +123,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_BELUX_GEO_1_0() {
+        function style_Belux_1_0() {
             return {
-                pane: 'pane_BELUX_GEO_1',
+                pane: 'pane_Belux_1',
                 opacity: 1,
                 color: 'rgba(241,0,0,1.0)',
                 dashArray: '',
@@ -136,55 +138,238 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_BELUX_GEO_1');
-        map.getPane('pane_BELUX_GEO_1').style.zIndex = 401;
-        map.getPane('pane_BELUX_GEO_1').style['mix-blend-mode'] = 'normal';
-        var layer_BELUX_GEO_1 = new L.geoJson(json_BELUX_GEO_1, {
+        map.createPane('pane_Belux_1');
+        map.getPane('pane_Belux_1').style.zIndex = 401;
+        map.getPane('pane_Belux_1').style['mix-blend-mode'] = 'normal';
+        var layer_Belux_1 = new L.geoJson(json_Belux_1, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_BELUX_GEO_1',
-            layerName: 'layer_BELUX_GEO_1',
-            pane: 'pane_BELUX_GEO_1',
-            onEachFeature: pop_BELUX_GEO_1,
-            style: style_BELUX_GEO_1_0,
+            dataVar: 'json_Belux_1',
+            layerName: 'layer_Belux_1',
+            pane: 'pane_Belux_1',
+            onEachFeature: pop_Belux_1,
+            style: style_Belux_1_0,
         });
-        bounds_group.addLayer(layer_BELUX_GEO_1);
-        map.addLayer(layer_BELUX_GEO_1);
-        var osmGeocoder = new L.Control.Geocoder({
-            collapsed: true,
-            position: 'topleft',
-            text: 'Search',
-            title: 'Testing'
-        }).addTo(map);
-        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
-        .className += ' fa fa-search';
-        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
-        .title += 'Search for a place';
+        bounds_group.addLayer(layer_Belux_1);
+        map.addLayer(layer_Belux_1);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'<img src="legend/BELUX_GEO_1.png" /> BELUX_GEO': layer_BELUX_GEO_1,"Google Road": layer_GoogleRoad_0,}).addTo(map);
+        L.control.layers(baseMaps,{'<img src="legend/Belux_1.png" /> Belux': layer_Belux_1,"Google Road": layer_GoogleRoad_0,}).addTo(map);
         setBounds();
         var i = 0;
-        layer_BELUX_GEO_1.eachLayer(function(layer) {
+        layer_Belux_1.eachLayer(function(layer) {
             var context = {
                 feature: layer.feature,
                 variables: {}
             };
-            layer.bindTooltip((layer.feature.properties['name'] !== null?String('<div style="color: #323232; font-size: 10pt; font-family: \'Open Sans\', sans-serif;">' + layer.feature.properties['name']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_BELUX_GEO_1'});
+            layer.bindTooltip((layer.feature.properties['name'] !== null?String('<div style="color: #000000; font-size: 10pt; font-family: \'Open Sans\', sans-serif;">' + layer.feature.properties['name']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Belux_1'});
             labels.push(layer);
             totalMarkers += 1;
               layer.added = true;
               addLabel(layer, i);
               i++;
         });
-        resetLabels([layer_BELUX_GEO_1]);
+        var mapDiv = document.getElementById('map');
+        var row = document.createElement('div');
+        row.className="row";
+        row.id="all";
+        row.style.height = "100%";
+        var col1 = document.createElement('div');
+        col1.className="col9";
+        col1.id = "mapWindow";
+        col1.style.height = "100%";
+        col1.style.width = "100%";
+        col1.style.position = "relative"; col1.style.zIndex = "0";
+        var col2 = document.createElement('div');
+        col2.className="col3";
+        col2.id = "menu";
+        col2.style.position = "absolute"; col2.style.bottom = "0.5%"; col2.style.left = "0.5%"; col2.style.width = "200px"; col2.style.zIndex = "1"; col2.style.backgroundColor = "rgba(255, 255, 255, 0.8)"; col2.style.borderRadius = "10px";
+        mapDiv.parentNode.insertBefore(row, mapDiv);
+        document.getElementById("all").appendChild(col1);
+        document.getElementById("all").appendChild(col2);
+        col1.appendChild(mapDiv)
+        var Filters = {"upper": "int","category": "str"};
+        function filterFunc() {
+          map.eachLayer(function(lyr){
+          if ("options" in lyr && "dataVar" in lyr["options"]){
+            features = this[lyr["options"]["dataVar"]].features.slice(0);
+            try{
+              for (key in Filters){
+                keyS = key.replace(/[^a-zA-Z0-9_]/g, "")
+                if (Filters[key] == "str" || Filters[key] == "bool"){
+                  var selection = [];
+                  var options = document.getElementById("sel_" + keyS).options
+                  for (var i=0; i < options.length; i++) {
+                    if (options[i].selected) selection.push(options[i].value);
+                  }
+                    try{
+                      if (key in features[0].properties){
+                        for (i = features.length - 1;
+                          i >= 0; --i){
+                          if (selection.indexOf(
+                          features[i].properties[key])<0
+                          && selection.length>0) {
+                          features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                  }
+                }
+                if (Filters[key] == "int"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (parseInt(features[i].properties[key])
+                          < sliderVals[0]
+                          || parseInt(features[i].properties[key])
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "real"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (features[i].properties[key]
+                          < sliderVals[0]
+                          || features[i].properties[key]
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "date"
+                  || Filters[key] == "datetime"
+                  || Filters[key] == "time"){
+                  try{
+                    if (key in features[0].properties){
+                      HTMLkey = key.replace(/[&\/\\#,+()$~%.'":*?<>{} ]/g, '');
+                      startdate = document.getElementById("dat_" +
+                        HTMLkey + "_date1").value.replace(" ", "T");
+                      enddate = document.getElementById("dat_" +
+                        HTMLkey + "_date2").value.replace(" ", "T");
+                      for (i = features.length - 1; i >= 0; --i){
+                        if (features[i].properties[key] < startdate
+                          || features[i].properties[key] > enddate){
+                          features.splice(i,1);
+                        }
+                      }
+                    }
+                  } catch(err){
+                  }
+                }
+              }
+            } catch(err){
+            }
+          this[lyr["options"]["layerName"]].clearLayers();
+          this[lyr["options"]["layerName"]].addData(features);
+        var i = 0;
+        layer_Belux_1.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['name'] !== null?String('<div style="color: #000000; font-size: 10pt; font-family: \'Open Sans\', sans-serif;">' + layer.feature.properties['name']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Belux_1'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+          }
+          })
+        }
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_upper = document.createElement("div");
+            div_upper.id = "div_upper";
+            div_upper.className = "slider";
+            document.getElementById("menu").appendChild(div_upper);
+            var lab_upper = document.createElement('div');
+            lab_upper.innerHTML  = 'upper: <span id="val_upper"></span>';
+            lab_upper.className = 'filterlabel';
+            document.getElementById("menu").appendChild(lab_upper);
+            var reset_upper = document.createElement('div');
+            reset_upper.innerHTML = 'clear filter';
+            reset_upper.className = 'filterlabel';
+            lab_upper.className = 'filterlabel';
+            reset_upper.onclick = function() {
+                sel_upper.noUiSlider.reset();
+            };
+            document.getElementById("menu").appendChild(reset_upper);
+            var sel_upper = document.getElementById('div_upper');
+            noUiSlider.create(sel_upper, {
+                connect: true,
+                start: [0, 660],
+                step: 1,
+                format: wNumb({
+                    decimals: 0,
+                    }),
+                range: {
+                min: 0,
+                max: 660
+                }
+            });
+            sel_upper.noUiSlider.on('update', function (values) {
+            filterVals =[];
+            for (value in values){
+            filterVals.push(parseInt(value))
+            }
+            val_upper = document.getElementById('val_upper');
+            val_upper.innerHTML = values.join(' - ');
+                filterFunc()
+            });
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_category = document.createElement('div');
+            div_category.id = "div_category";
+            div_category.className= "filterselect";
+            document.getElementById("menu").appendChild(div_category);
+            sel_category = document.createElement('select');
+            sel_category.multiple = true;
+            sel_category.size = 2;
+            sel_category.id = "sel_category";
+            
+            sel_category.onchange = function(){filterFunc()};
+            category_options_str  = '<option value="DANG">DANG</option>';
+            category_options_str  += '<option value="TRA/TSA">TRA/TSA</option>';
+            sel_category.innerHTML = category_options_str;
+            div_category.appendChild(sel_category);
+            var lab_category = document.createElement('div');
+            lab_category.innerHTML = 'category';
+            lab_category.className = 'filterlabel';
+            div_category.appendChild(lab_category);
+            var reset_category = document.createElement('div');
+            reset_category.innerHTML = 'clear filter';
+            reset_category.className = 'filterlabel';
+            reset_category.onclick = function() {
+                var options = document.getElementById("sel_category").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_category.appendChild(reset_category);
+        resetLabels([layer_Belux_1]);
         map.on("zoomend", function(){
-            resetLabels([layer_BELUX_GEO_1]);
+            resetLabels([layer_Belux_1]);
         });
         map.on("layeradd", function(){
-            resetLabels([layer_BELUX_GEO_1]);
+            resetLabels([layer_Belux_1]);
         });
         map.on("layerremove", function(){
-            resetLabels([layer_BELUX_GEO_1]);
+            resetLabels([layer_Belux_1]);
         });
         </script>
     </body>
